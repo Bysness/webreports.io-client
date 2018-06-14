@@ -43,7 +43,7 @@ module.exports=(options={})=>{
                 let reportData=await handler(req,res);
                 if(reportData!==false)
                 {
-                    this.previewReportExpress(projectKey,req.query.reportKey,reportData,res);
+                    this.downloadReportExpress(projectKey,req.query.reportKey,reportData,res);
                 }
                 else{
                     res.send('Proper parameters must be provided');
