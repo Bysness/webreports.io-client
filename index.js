@@ -28,18 +28,18 @@ module.exports=(options={})=>{
                 json:true
             });
         }
-        this.expressSetup=async({router,handler,previewEndpoint='/report',pdfEndpoint='/getpdf'})=>{
+        this.expressSetup=async(projectKey,{router,handler,previewEndpoint='/report',pdfEndpoint='/getpdf'})=>{
             router.get(previewEndpoint,async (req,res)=>{
                 let reportData=await handler(req,res);
-                this.previewReportExpress(req.query.reportKey,reportData,res);
+                this.previewReportExpress(projectKey,req.query.reportKey,reportData,res);
             });
             router.get(pdfEndpoint,async (req,res)=>{
                 let reportData=await handler(req,res);
-                this.downloadReportExpress(req.query.reportKey,reportData,res);
+                this.downloadReportExpress(projectKey,req.query.reportKey,reportData,res);
             });
         }
-        this.downloadReportExpress=async(reportKey,reportData,res)=>{
-            let reportRes=await this.generateReport(reportKey,reportData);
+        this.downloadReportExpress=async(projectKey,reportKey,reportData,res)=>{
+            let reportRes=await this.generateReport(projectKey,reportKey,reportData);
             if(reportRes.pipe)
             {
                 return reportRes.pipe(res);
@@ -49,8 +49,8 @@ module.exports=(options={})=>{
                 res.end();
             }
         }
-        this.previewReportExpress=async(reportKey,reportData,res)=>{
-            let reportRes=await this.previewReport(reportKey,reportData);
+        this.previewReportExpress=async(projectKey,reportKey,reportData,res)=>{
+            let reportRes=await this.previewReport(projectKey,reportKey,reportData);
             if(reportRes.pipe)
             {
                 return reportRes.pipe(res);
@@ -60,12 +60,13 @@ module.exports=(options={})=>{
                 res.end();
             }
         }
-        this.generateReport=async (reportKey,reportData)=>{
+        this.generateReport=async (projectKey,reportKey,reportData)=>{
             return request({
                 method:'post',
                 uri: this.url + 'generate_report',
                 body:{
                     apiKey:this.key,
+                    projectKey,
                     reportKey,
                     reportData,
                 },
@@ -75,12 +76,13 @@ module.exports=(options={})=>{
                 json:true
             })
         }
-        this.previewReport=async (reportKey,reportData={})=>{
+        this.previewReport=async (projectKey,reportKey,reportData={})=>{
             return request({
                 method:'post',
                 uri: this.url + 'preview_report',
                 body:{
                     apiKey:this.key,
+                    projectKey,
                     reportKey,
                     reportData,
                 },

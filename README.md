@@ -26,7 +26,7 @@ Free tier comes with thousands of API requests per month that makes it practical
 #### Designing a Report
 
 1. Sign up and/or login on WebReports.io
-2. Click on Reports button in the navigation and click **Add New Report**, name your report and give it a unique key such as "order_invoice", click Create and Design. You can come back to WebReports.io and hover on the created report to go back to working on its design.
+2. Click on Projects button in the navigation and click **New Project**. Give a sensible name and a unique key to your project and click Create. Then click on Reports button in the navigation and click **Add New Report**, name your report and give it a unique key such as "order_invoice", click Create and Design. You can come back to WebReports.io and hover on the created report to go back to working on its design.
 3. You can create labels, images, tables, and boxes. To style the your components, give it a name using the toolbar, and click Edit CSS. You can then use attribute selectors to style your components, i.e. `[data-name="<component name here>"]{ <CSS Properties> }`
 4. For your components to auto adjust when the dynamic data arrives, you need to setup anchors. To see how anchors work, you should [watch this video](https://webreports.io/how-to-design).
 5. Make sure you save your progress routinely using the **Save** button. If you want to see how your design will look when printed, you can click on Print Preview and then click on Save button again to make the preview refresh.
@@ -46,7 +46,7 @@ Free tier comes with thousands of API requests per month that makes it practical
 
 
 ```javascript
-webReports.expressSetup({
+webReports.expressSetup(projectKey,{
     router:expressRouter, //Object returned by express.Router();
     handler:async (req,res)=>{
         //Return your report data here
@@ -64,7 +64,7 @@ webReports.expressSetup({
 *Returns a stream containing PDF data, you can pipe it into a response object to force download.*
 
 ```javascript
-await webReports.generateReport(reportKey,reportData); //reportKey is the key you name using the designer
+await webReports.generateReport(projectKey,reportKey,reportData); //projectKey is the key identifying your project, and reportKey is the key you name using the designer
 ```
 
 *Returns a stream containing HTML data. You can pipe it into a response with your own route that you can load in an iframe*
@@ -72,7 +72,7 @@ await webReports.generateReport(reportKey,reportData); //reportKey is the key yo
 **To get a self-contained HTML preview page of your designed report with dynamic data**
 
 ```javascript
-await webReports.previewReport(reportKey,reportData); //reportKey is the key you name using the designer
+await webReports.previewReport(projectKey,reportKey,reportData); //projectKey is the key identifying your project, and reportKey is the key you name using the designer
 ```
 
 ### Format of the dynamic data
