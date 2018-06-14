@@ -31,11 +31,23 @@ module.exports=(options={})=>{
         this.expressSetup=async(projectKey,{router,handler,previewEndpoint='/report',pdfEndpoint='/getpdf'})=>{
             router.get(previewEndpoint,async (req,res)=>{
                 let reportData=await handler(req,res);
-                this.previewReportExpress(projectKey,req.query.reportKey,reportData,res);
+                if(reportData!==false)
+                {
+                    this.previewReportExpress(projectKey,req.query.reportKey,reportData,res);
+                }
+                else{
+                    res.send('Proper parameters must be provided');
+                }
             });
             router.get(pdfEndpoint,async (req,res)=>{
                 let reportData=await handler(req,res);
-                this.downloadReportExpress(projectKey,req.query.reportKey,reportData,res);
+                if(reportData!==false)
+                {
+                    this.previewReportExpress(projectKey,req.query.reportKey,reportData,res);
+                }
+                else{
+                    res.send('Proper parameters must be provided');
+                }
             });
         }
         this.downloadReportExpress=async(projectKey,reportKey,reportData,res)=>{
