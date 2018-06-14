@@ -1,6 +1,6 @@
 {
   "name": "webreports.io-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Official Client to generate reports using WebReports.io",
   "main": "index.js",
   "scripts": {
