@@ -1,5 +1,5 @@
-# WebReports.io Official NodeJS Client
-Official Client to generate reports using WebReports.io
+# WebReports.io Official NodeJS Client (Moved to Glish.io)
+Official Client to generate reports using WebReports.io (Currently moved to Glish.io)
 
 
 WebReports.io is a new Reports as a Service. You can design reports using a drag and drop interface, give them a key, and simply generate previews or PDFs by calling the functions provided by the API.
