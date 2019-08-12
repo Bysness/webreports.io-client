@@ -88,6 +88,23 @@ module.exports=(options={})=>{
                 json:true
             })
         }
+        this.generateReportBuffer=async (projectKey,reportKey,reportData)=>{
+            return request({
+                method:'post',
+                uri: this.url + 'generate_report',
+                body:{
+                    apiKey:this.key,
+                    projectKey,
+                    reportKey,
+                    reportData,
+                },
+                headers: {
+                    'User-Agent': 'WebReports.io-client'
+                },
+                encoding: null,
+                json:true
+            })
+        }
         this.previewReport=async (projectKey,reportKey,reportData={})=>{
             return request({
                 method:'post',
